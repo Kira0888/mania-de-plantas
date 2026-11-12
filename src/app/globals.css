@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────────────────
+   MANIA DE PLANTAS — Design System "Botanic" (escuro, editorial)
+   Fundo verde profundo · superfícies em verde um tom acima · mostarda suave · off-white
+   ────────────────────────────────────────────────────────────────────────── */
+
+@theme static {
+  /* Cor (contrastes WCAG medidos: creme/fundo 15,3 · neblina/superfície 7,6 · mostarda/fundo 10,1) */
+  --color-fundo: #0f1c18;
+  --color-superficie: #152722;
+  --color-superficie-alta: #1b332c;
+  --color-mostarda: #e5c158;
+  --color-mostarda-escura: #d2ab3a;
+  --color-creme: #f4efe4;
+  --color-neblina: #a9b8ae;
+
+  /* Escala fluida */
+  --text-display-xl: clamp(2.7rem, 1.3rem + 5.2vw, 5.6rem);
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.025em;
+  --text-display-l: clamp(2.1rem, 1.3rem + 3.2vw, 4.2rem);
+  --text-display-l--line-height: 1.04;
+  --text-display-l--letter-spacing: -0.02em;
+  --text-display-m: clamp(1.45rem, 1.15rem + 1.1vw, 2rem);
+  --text-display-m--line-height: 1.15;
+  --text-display-m--letter-spacing: -0.01em;
+  --text-lead: clamp(1.02rem, 0.98rem + 0.3vw, 1.2rem);
+  --text-lead--line-height: 1.65;
+
+  /* Movimento */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  /* Fontes injetadas pelo next/font em <html> */
+  --font-serif: var(--font-playfair), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    background-color: var(--color-fundo);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+
+  /* Scroll nativo e suave — sem biblioteca, sem scroll-jacking */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    color: var(--color-creme);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    background: var(--color-mostarda);
+    color: var(--color-fundo);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-mostarda);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  img,
+  svg {
+    display: block;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ── Utilitários da marca ─────────────────────────────────────────────── */
+
+@utility wrap {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1360px;
+  padding-inline: clamp(1.25rem, 0.5rem + 3.2vw, 3.5rem);
+}
+
+/* Serifada editorial de títulos */
+@utility t-display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+/* Rótulo: caixa-alta espaçada */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Destaque em itálico mostarda — a "assinatura" dos títulos */
+@utility em-accent {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-mostarda);
+}
+
+/* Link com sublinhado que desenha no hover (só transform) + área de toque ≥ 44px */
+@utility link-draw {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.65rem;
+  margin-block: -0.65rem;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(0.65rem - 4px);
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0.35);
+    transform-origin: left;
+    transition: transform 600ms var(--ease-soft);
+  }
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+/* ── Marquee: só `transform` no compositor. Duas metades idênticas → loop sem emenda ── */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+  will-change: transform;
+}
+
+/* ── Cards flutuantes do hero: levitação suave (transform no compositor) ── */
+@keyframes flutua {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+.flutua {
+  animation: flutua 6s ease-in-out infinite;
+}
+.flutua-2 {
+  animation: flutua 7.5s ease-in-out -2.5s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .flutua,
+  .flutua-2 {
+    animation: none;
+  }
+}
+
+/* Foto: zoom lento no hover (transform) */
+.foto-zoom img {
+  transition: transform 1200ms var(--ease-soft);
+}
+@media (hover: hover) {
+  .group:hover .foto-zoom img,
+  .foto-zoom:hover img {
+    transform: scale(1.04);
+  }
+}
