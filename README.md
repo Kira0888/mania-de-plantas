@@ -20,14 +20,22 @@ npm run typecheck && npm run lint
 
 | Arquivo | Uso | Status |
 |---|---|---|
-| `33611.png` | Hero — foto principal **e fallback do vídeo** | ✅ incluído |
+| `hero_inicio.jpg` | Hero — **primeiro quadro do vídeo**: imagem inicial (LCP), sem "pisca" quando o vídeo entra | ✅ incluído (gerado do vídeo) |
+| `33611.png` | Hero — foto de **fallback** (só baixada se o vídeo falhar ou o usuário pedir menos movimento) | ✅ incluído |
 | `33608.png` | Card 1 "O Clássico" (rosas, lírios amarelos, flores azuis) | ✅ incluído |
 | `33610.png` | Card 2 "O Ousado" (hortênsia azul) | ✅ incluído |
 | `33609.png` | Card 3 "O Especial" (rosas no cone de papel pardo) | ✅ incluído |
 | `hero_bg.mp4` | Vídeo do hero (rosas e hortênsias, 720×1280, 10 s, 5,1 MB) | ✅ incluído |
 
 ### Vídeo do hero (`public/hero_bg.mp4`)
-O vídeo toca por cima da foto `33611.png`, que continua como fallback: se o arquivo faltar ou falhar, a foto assume e nada quebra. Ele só é carregado depois da foto, pausa quando sai da tela e **não toca** com "reduzir movimento" ou "economia de dados".
+O hero abre com `hero_inicio.jpg` (o **primeiro quadro do vídeo**, renderizado no servidor) e o vídeo "acorda" exatamente nesse quadro, então não há troca visível de imagem (diferença medida: 1,4%, contra 31,7% quando a base era outra foto). Se o vídeo faltar/falhar, ou o usuário pedir "reduzir movimento"/"economia de dados", a foto `33611.png` entra como fallback com um fade curto; só nesses casos ela é baixada. O vídeo pausa quando sai da tela.
+
+**Se trocar o `hero_bg.mp4`, gere o primeiro quadro de novo** (a conversão usa a matriz de cor BT.601 do vídeo, a mesma que o navegador usa):
+```bash
+ffmpeg -y -i public/hero_bg.mp4 -frames:v 1 -vf "scale=in_color_matrix=bt601:in_range=limited:out_range=full,format=rgb24" /tmp/f0.png
+magick /tmp/f0.png -strip -interlace Plane -quality 88 public/hero_inicio.jpg
+```
+Confira a matriz com `ffprobe -show_entries stream=color_space public/hero_bg.mp4`: se não for `smpte170m`, ajuste `in_color_matrix`.
 Peso atual: 5,1 MB (inclui uma trilha de áudio que não é usada, pois o vídeo toca sempre sem som). Dá para reduzir para ~2 MB sem áudio se quiser economizar dados no celular.
 
 ## Onde mexer

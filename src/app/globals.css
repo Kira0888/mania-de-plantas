@@ -148,6 +148,24 @@
   }
 }
 
+/* Entrada suave da foto de fallback do hero (só opacity) */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fade-in 600ms var(--ease-soft) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
+}
+
 /* Telas baixas (notebook 1366×768 etc.): título um pouco menor para CTA e selo caberem na 1ª dobra */
 @media (min-width: 1024px) and (max-height: 820px) {
   :root {

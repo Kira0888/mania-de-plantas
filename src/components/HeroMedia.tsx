@@ -5,7 +5,14 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const VIDEO_SRC = "/hero_bg.mp4";
 
-/** Quando o vídeo pode tocar: sem "reduzir movimento" e sem "economia de dados". Servidor = false. */
+/**
+ * Modo de mídia:
+ *  - "unknown": servidor / hidratação (ainda não sabemos as preferências do usuário)
+ *  - "play":    vídeo permitido
+ *  - "still":   usuário pediu menos movimento ou economia de dados → sem vídeo
+ */
+type Mode = "unknown" | "play" | "still";
+
 const QUERY = "(prefers-reduced-motion: reduce)";
 
 function subscribe(cb: () => void) {
@@ -14,36 +21,42 @@ function subscribe(cb: () => void) {
   return () => mq.removeEventListener("change", cb);
 }
 
-function getSnapshot() {
+function getSnapshot(): Mode {
   const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-  return !window.matchMedia(QUERY).matches && !saveData;
+  return !window.matchMedia(QUERY).matches && !saveData ? "play" : "still";
 }
 
-const getServerSnapshot = () => false;
+const getServerSnapshot = (): Mode => "unknown";
 
 type Props = {
-  /** foto: é o LCP e o fallback caso o vídeo não exista, falhe ou não deva tocar */
-  imageSrc: string;
-  imageAlt: string;
+  /** PRIMEIRO QUADRO do vídeo (hero_inicio.jpg): imagem inicial renderizada no servidor (é o LCP) */
+  stillSrc: string;
+  stillAlt: string;
+  /** foto de fallback: só é carregada se o vídeo falhar ou não puder tocar */
+  fallbackSrc: string;
+  fallbackAlt: string;
   sizes: string;
 };
 
 /**
- * Mídia do hero: FOTO primeiro, VÍDEO por cima quando estiver rodando.
+ * Mídia do hero, sem "pisca":
  *
- * - A foto (`next/image`, `priority`) é renderizada no servidor → LCP rápido, sem esperar vídeo.
- * - O <video> só é montado no cliente, depois da hidratação, e só se o usuário permitir movimento.
- * - Se `/hero_bg.mp4` não existir ou falhar, o evento `error` remove o vídeo e a foto continua ali.
- * - O vídeo pausa quando sai da tela (IntersectionObserver) — economiza CPU/bateria no celular.
- * - `preload="metadata"`: não baixa o arquivo inteiro de antemão; o autoplay começa o streaming.
+ * 1. O servidor entrega o PRIMEIRO QUADRO do vídeo como imagem (`priority` → LCP rápido).
+ * 2. Depois da hidratação o <video> monta e começa exatamente nesse quadro — a transição
+ *    foto → vídeo é invisível, porque são o mesmo pixel (conversão de cor conferida contra o Chromium).
+ * 3. Se o vídeo falhar, ou o usuário pedir menos movimento / economia de dados, a foto de
+ *    fallback (33611) entra com um fade curto. Nesse caso — e só nele — ela é baixada.
+ * 4. O vídeo pausa quando sai da tela (IntersectionObserver); `preload="metadata"`.
  */
-export function HeroMedia({ imageSrc, imageAlt, sizes }: Props) {
+export function HeroMedia({ stillSrc, stillAlt, fallbackSrc, fallbackAlt, sizes }: Props) {
   const boxRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const canPlay = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const mode = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [failed, setFailed] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const showVideo = canPlay && !failed;
+
+  const showVideo = mode === "play" && !failed;
+  const showFallback = mode === "still" || failed;
 
   useEffect(() => {
     const box = boxRef.current;
@@ -59,8 +72,17 @@ export function HeroMedia({ imageSrc, imageAlt, sizes }: Props) {
 
   return (
     <div ref={boxRef} className="absolute inset-0 overflow-hidden rounded-sm bg-blush-profundo">
-      <Image src={imageSrc} alt={imageAlt} fill priority sizes={sizes} className="object-cover" />
+      {/* camada 1 — primeiro quadro do vídeo (SSR) */}
+      <Image
+        src={stillSrc}
+        alt={showFallback ? "" : stillAlt}
+        fill
+        priority
+        sizes={sizes}
+        className="object-cover"
+      />
 
+      {/* camada 2 — vídeo; o crossfade é imperceptível porque começa no mesmo quadro */}
       {showVideo && (
         <video
           ref={videoRef}
@@ -74,9 +96,20 @@ export function HeroMedia({ imageSrc, imageAlt, sizes }: Props) {
           tabIndex={-1}
           onPlaying={() => setPlaying(true)}
           onError={() => setFailed(true)}
-          className={`absolute inset-0 h-full w-full transform-gpu rounded-sm object-cover transition-opacity duration-1000 ${
+          className={`absolute inset-0 h-full w-full transform-gpu rounded-sm object-cover transition-opacity duration-500 ${
             playing ? "opacity-100" : "opacity-0"
           }`}
+        />
+      )}
+
+      {/* camada 3 — foto de fallback (só quando necessário) */}
+      {showFallback && (
+        <Image
+          src={fallbackSrc}
+          alt={fallbackAlt}
+          fill
+          sizes={sizes}
+          className="fade-in object-cover"
         />
       )}
     </div>

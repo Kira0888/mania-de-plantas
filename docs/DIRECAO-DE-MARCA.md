@@ -48,11 +48,12 @@ Boutique floral clássica: fundo rosa pálido, tipografia serifada gigante e ele
 
 | Arquivo | Conteúdo | Uso |
 |---|---|---|
-| `33611.png` | Buquê de rosas vermelhas | Hero (foto principal e **fallback do vídeo**) |
+| `hero_inicio.jpg` | Primeiro quadro do vídeo (720×1280) | Hero: imagem inicial renderizada no servidor (LCP); o vídeo começa nesse mesmo quadro, sem "pisca" |
+| `33611.png` | Buquê de rosas vermelhas | Hero: **fallback** (só baixada se o vídeo falhar ou com reduced-motion / Save-Data) |
 | `33608.png` | Rosas, lírios amarelos e flores azuis | Card 1 — O Clássico |
 | `33610.png` | Hortênsia azul | Card 2 — O Ousado |
 | `33609.png` | Rosas no cone de papel pardo | Card 3 — O Especial |
-| `hero_bg.mp4` | Vídeo do hero: rosas e hortênsias, H.264, 720×1280, 10 s, 5,1 MB | Por cima da foto; sem ele (ou se falhar) a foto assume |
+| `hero_bg.mp4` | Vídeo do hero: rosas e hortênsias, H.264, 720×1280, 10 s, 5,1 MB | Começa no quadro de `hero_inicio.jpg`; sem ele (ou se falhar) a foto de fallback assume |
 
 ## 6. Arquitetura
 
@@ -74,7 +75,7 @@ Flutuante (mobile): pílula "Fazer Encomenda →" após o hero
 | `transform-gpu will-change-transform` **apenas durante a animação**, removido ao terminar | Camadas de GPU permanentes em dezenas de elementos pesam na memória do celular |
 | `LazyMotion` + `domAnimation` + `m.*` | ≈15 KB de animação |
 | Parallax, marquee, brilhos e levitação removidos | Menos trabalho contínuo |
-| Foto do hero com `priority` renderizada no servidor | LCP não espera vídeo nem JS |
+| Primeiro quadro do vídeo como imagem do hero (`priority`, SSR) | LCP não espera vídeo nem JS e a entrada do vídeo não causa troca de imagem (31,7% → 1,4% de diferença) |
 | Vídeo montado só no cliente, pausa fora da tela, `preload="metadata"`, ignorado com reduced-motion / Save-Data | Economia de CPU, bateria e dados |
 | 2 fontes variáveis, sem itálico | Menos requisições e bytes |
 | `lucide-react` com import nomeado | Só os 6 ícones usados entram no bundle |

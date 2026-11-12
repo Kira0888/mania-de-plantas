@@ -11,10 +11,12 @@ import { waLink } from "@/lib/whatsapp";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    IMAGENS — arquivos na raiz de /public
-   O vídeo do hero (/hero_bg.mp4) é OPCIONAL: se não existir, a foto do hero assume sozinha.
+   O vídeo do hero (/hero_bg.mp4) é OPCIONAL: se faltar ou falhar, a foto de fallback assume sozinha.
+   Se trocar o vídeo, gere de novo o primeiro quadro: ffmpeg -i public/hero_bg.mp4 -frames:v 1 -vf "scale=in_color_matrix=bt601:in_range=limited:out_range=full,format=rgb24" f.png  (veja o README).
    ═══════════════════════════════════════════════════════════════════════════ */
 const IMG = {
-  hero: "/33611.png", // buquê de rosas vermelhas (fallback do vídeo)
+  heroStill: "/hero_inicio.jpg", // PRIMEIRO QUADRO de hero_bg.mp4 — imagem inicial do hero (sem "pisca" ao entrar o vídeo)
+  heroFallback: "/33611.png", // buquê de rosas vermelhas — só entra se o vídeo falhar ou o usuário pedir menos movimento
   classico: "/33608.png", // rosas, lírios amarelos e flores azuis
   ousado: "/33610.png", // hortênsia azul
   especial: "/33609.png", // rosas no cone de papel pardo
@@ -146,8 +148,10 @@ function Hero() {
         <div className="relative px-5 pb-12 sm:px-8 lg:min-h-[min(44rem,calc(100svh-4.5rem))] lg:p-0">
           <div className="relative aspect-[4/5] lg:absolute lg:inset-0 lg:aspect-auto">
             <HeroMedia
-              imageSrc={IMG.hero}
-              imageAlt="Buquê de rosas vermelhas com flores do campo, embrulhado em papel vermelho"
+              stillSrc={IMG.heroStill}
+              stillAlt="Arranjo de rosas vermelhas e hortênsias azuis sob a luz dourada da tarde"
+              fallbackSrc={IMG.heroFallback}
+              fallbackAlt="Buquê de rosas vermelhas com flores do campo, embrulhado em papel vermelho"
               sizes="(min-width: 1024px) 54vw, 92vw"
             />
           </div>
