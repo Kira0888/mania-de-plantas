@@ -4,22 +4,24 @@ import { MotionProvider } from "@/components/motion/MotionProvider";
 import { site } from "@/content/site";
 import "./globals.css";
 
-/** Títulos: Playfair Display — serifada editorial de alto contraste. */
+/**
+ * Títulos: Playfair Display — serifada clássica de alto contraste.
+ * Só o estilo normal (variável, 1 arquivo): o design não usa itálico, então não baixamos o arquivo itálico.
+ */
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  style: ["normal", "italic"],
   variable: "--font-playfair",
   display: "swap",
 });
 
-/** Texto e interface: Plus Jakarta Sans — sans moderna e limpa. */
+/** Texto e interface: Plus Jakarta Sans — sans moderna, fina e legível (1 arquivo variável). */
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   display: "swap",
 });
 
-const title = `${site.name} — Floricultura em ${site.locality} | Arranjos, Plantas e Encomendas`;
+const title = `${site.name} — Floricultura em ${site.locality} | Flores Frescas e Arranjos Artesanais`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -31,10 +33,10 @@ export const metadata: Metadata = {
     "floricultura",
     "floricultura em Samambaia",
     "flores Samambaia DF",
-    "arranjos de flores",
+    "buquê de flores",
     "encomenda de flores",
     "buquê de rosas",
-    "plantas ornamentais",
+    "arranjos artesanais",
     "presente com flores",
     "Mania de Plantas",
   ],
@@ -51,8 +53,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f1c18",
-  colorScheme: "dark",
+  themeColor: "#f7ebe8",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -84,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <a
           href="#conteudo"
-          className="fixed top-3 left-3 z-[100] -translate-y-20 rounded-full bg-mostarda px-5 py-3 text-sm font-semibold text-fundo transition-transform focus:translate-y-0"
+          className="fixed top-3 left-3 z-[100] -translate-y-20 rounded-full bg-bordo px-5 py-3 text-sm font-medium text-blush transition-transform focus:translate-y-0"
         >
           Pular para o conteúdo
         </a>

@@ -1,24 +1,24 @@
 "use client";
 
 import { AnimatePresence, m } from "framer-motion";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { waLink } from "@/lib/whatsapp";
-import { CloseIcon, MenuIcon, WhatsAppIcon } from "./ui/icons";
 
 const NAV = [
-  { label: "Sobre", href: "#sobre" },
-  { label: "Mais Amados", href: "#mais-amados" },
-  { label: "Serviços", href: "#servicos" },
+  { label: "Buquês", href: "#buques" },
+  { label: "Como Funciona", href: "#como-funciona" },
+  { label: "Contato", href: "#contato" },
 ] as const;
 
-/** Logo tipográfico: serifada com o "de" em itálico mostarda. */
+/** Logo tipográfico: MANIA / DE PLANTAS — serifada em caixa-alta espaçada. */
 function Logo() {
   return (
-    <span className="t-display text-[1.45rem] leading-none tracking-[-0.01em] text-creme">
+    <span className="t-display text-[1.02rem] leading-none tracking-[0.2em] uppercase sm:text-[1.1rem]">
       <span className="sr-only">{site.name}</span>
       <span aria-hidden="true">
-        Mania <span className="font-normal text-mostarda italic">de</span> Plantas
+        Mania <span className="opacity-50">/</span> de Plantas
       </span>
     </span>
   );
@@ -55,18 +55,18 @@ export function Header() {
     <>
       <div ref={sentinel} aria-hidden="true" className="pointer-events-none absolute top-0 left-0 h-14 w-px" />
       <header
-        className={`sticky top-0 z-50 border-b transition-[background-color,border-color] duration-500 ${
-          scrolled || open ? "border-creme/10 bg-fundo" : "border-transparent bg-fundo/0"
+        className={`sticky top-0 z-50 border-b bg-blush transition-[border-color] duration-500 ${
+          scrolled || open ? "border-bordo/12" : "border-transparent"
         }`}
       >
-        <div className="wrap flex h-[4.75rem] items-center justify-between gap-6">
+        <div className="wrap flex h-[4.5rem] items-center justify-between gap-6">
           <a href="#inicio" aria-label={`${site.name} — início`} onClick={() => setOpen(false)} className="inline-flex h-11 shrink-0 items-center">
             <Logo />
           </a>
 
-          <nav aria-label="Principal" className="hidden items-center gap-10 md:flex">
+          <nav aria-label="Principal" className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 md:flex">
             {NAV.map((item) => (
-              <a key={item.href} href={item.href} className="link-draw text-[0.92rem] font-medium text-creme/85 hover:text-creme">
+              <a key={item.href} href={item.href} className="link-draw text-[0.9rem] text-bordo/90 hover:text-bordo">
                 {item.label}
               </a>
             ))}
@@ -77,22 +77,22 @@ export function Header() {
               href={waLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden h-11 items-center gap-2.5 rounded-full bg-mostarda px-5 text-[0.9rem] font-semibold text-fundo transition-colors duration-500 hover:bg-creme sm:inline-flex"
+              className="group hidden h-11 items-center gap-2.5 rounded-full border border-bordo/40 px-5 text-[0.68rem] font-medium tracking-[0.18em] text-bordo uppercase transition-colors duration-500 hover:bg-bordo hover:text-blush sm:inline-flex"
             >
-              <WhatsAppIcon className="h-[1.1em] w-[1.1em]" />
-              {site.whatsapp.cta}
+              Encomendar
+              <ArrowRight aria-hidden="true" strokeWidth={1.5} className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
               <span className="sr-only"> pelo WhatsApp (abre em nova aba)</span>
             </a>
 
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-creme md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-bordo md:hidden"
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? "Fechar menu" : "Abrir menu"}
               onClick={() => setOpen((v) => !v)}
             >
-              {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+              {open ? <X aria-hidden="true" strokeWidth={1.5} className="h-6 w-6" /> : <Menu aria-hidden="true" strokeWidth={1.5} className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -102,11 +102,11 @@ export function Header() {
         {open && (
           <m.div
             id="menu-mobile"
-            className="fixed inset-0 z-40 flex transform-gpu flex-col bg-fundo px-6 pt-28 pb-10 md:hidden"
+            className="fixed inset-0 z-40 flex transform-gpu flex-col bg-blush px-6 pt-28 pb-10 will-change-transform md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.3 }}
           >
             <nav aria-label="Menu" className="flex flex-col">
               {NAV.map((item, i) => (
@@ -114,10 +114,10 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="t-display transform-gpu border-b border-creme/10 py-5 text-4xl"
-                  initial={{ opacity: 0, y: 18 }}
+                  className="t-display transform-gpu border-b border-bordo/15 py-5 text-4xl will-change-transform"
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.08 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.55, delay: 0.06 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {item.label}
                 </m.a>
@@ -128,13 +128,13 @@ export function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="mt-auto inline-flex h-14 transform-gpu items-center justify-center gap-3 rounded-full bg-mostarda font-semibold text-fundo"
-              initial={{ opacity: 0, y: 18 }}
+              className="mt-auto inline-flex h-14 transform-gpu items-center justify-center gap-3 rounded-full bg-bordo text-[0.72rem] font-medium tracking-[0.18em] text-blush uppercase will-change-transform"
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.55, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
-              <WhatsAppIcon className="h-5 w-5" />
               {site.whatsapp.cta}
+              <ArrowRight aria-hidden="true" strokeWidth={1.5} className="h-4 w-4" />
             </m.a>
           </m.div>
         )}

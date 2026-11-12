@@ -7,7 +7,7 @@ export const site = {
   descriptor: "Floricultura & Garden Center",
   locality: "Samambaia, DF",
   description:
-    "Curadoria botânica e arranjos artesanais feitos com carinho. Encomendas exclusivas para presentes e decoração em Samambaia, DF. Nota 5.0 no Google. Peça pelo WhatsApp.",
+    "Flores frescas e arranjos artesanais entregues com carinho em Samambaia, DF. Nota 5.0 no Google. Faça sua encomenda pelo WhatsApp.",
 
   /**
    * Domínio público (canonical, sitemap, dados estruturados).
@@ -24,6 +24,7 @@ export const site = {
     number: "5561999842506",
     display: "(61) 99984-2506",
     cta: "Fazer Encomenda",
+    ctaFinal: "Falar no WhatsApp",
     defaultMessage: "Olá, Mania de Plantas! Gostaria de fazer uma encomenda.",
   },
 

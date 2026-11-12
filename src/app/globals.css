@@ -1,34 +1,32 @@
 @import "tailwindcss";
 
 /* ──────────────────────────────────────────────────────────────────────────
-   MANIA DE PLANTAS — Design System "Botanic" (escuro, editorial)
-   Fundo verde profundo · superfícies em verde um tom acima · mostarda suave · off-white
+   MANIA DE PLANTAS — Design System "Petal / Post" (boutique floral clássica)
+   Rosa pálido (blush) + bordô profundo. Serifada de alto contraste, pills, hairlines.
    ────────────────────────────────────────────────────────────────────────── */
 
 @theme static {
-  /* Cor (contrastes WCAG medidos: creme/fundo 15,3 · neblina/superfície 7,6 · mostarda/fundo 10,1) */
-  --color-fundo: #0f1c18;
-  --color-superficie: #152722;
-  --color-superficie-alta: #1b332c;
-  --color-mostarda: #e5c158;
-  --color-mostarda-escura: #d2ab3a;
-  --color-creme: #f4efe4;
-  --color-neblina: #a9b8ae;
+  /* Cor — contrastes WCAG medidos: bordô/blush 12,6 · blush/bordô-profundo 14,0 · tinta/blush 7,0 */
+  --color-blush: #f7ebe8;
+  --color-blush-profundo: #efd9d3;
+  --color-bordo: #4a1525;
+  --color-bordo-profundo: #3d101c;
+  --color-tinta: #6e4350; /* texto secundário sobre blush */
+  --color-petala: #e6cfcb; /* texto secundário sobre bordô */
 
   /* Escala fluida */
-  --text-display-xl: clamp(2.7rem, 1.3rem + 5.2vw, 5.6rem);
-  --text-display-xl--line-height: 1;
+  --text-display-xl: clamp(3.1rem, 1.4rem + 6.2vw, 6.6rem);
+  --text-display-xl--line-height: 0.95;
   --text-display-xl--letter-spacing: -0.025em;
-  --text-display-l: clamp(2.1rem, 1.3rem + 3.2vw, 4.2rem);
-  --text-display-l--line-height: 1.04;
+  --text-display-l: clamp(2.3rem, 1.2rem + 4.2vw, 4.6rem);
+  --text-display-l--line-height: 1.05;
   --text-display-l--letter-spacing: -0.02em;
-  --text-display-m: clamp(1.45rem, 1.15rem + 1.1vw, 2rem);
+  --text-display-m: clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem);
   --text-display-m--line-height: 1.15;
-  --text-display-m--letter-spacing: -0.01em;
-  --text-lead: clamp(1.02rem, 0.98rem + 0.3vw, 1.2rem);
-  --text-lead--line-height: 1.65;
+  --text-display-m--letter-spacing: -0.005em;
+  --text-lead: clamp(1.05rem, 1rem + 0.35vw, 1.28rem);
+  --text-lead--line-height: 1.6;
 
-  /* Movimento */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -42,8 +40,8 @@
 
 @layer base {
   html {
-    background-color: var(--color-fundo);
-    color-scheme: dark;
+    background-color: var(--color-blush);
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     scrollbar-gutter: stable;
@@ -57,9 +55,10 @@
   }
 
   body {
-    color: var(--color-creme);
+    color: var(--color-bordo);
     font-family: var(--font-sans);
     font-size: 1rem;
+    font-weight: 400;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -67,22 +66,26 @@
   }
 
   [id] {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 4.5rem;
   }
 
   ::selection {
-    background: var(--color-mostarda);
-    color: var(--color-fundo);
+    background: var(--color-bordo);
+    color: var(--color-blush);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-mostarda);
+    outline: 2px solid var(--color-bordo);
     outline-offset: 3px;
     border-radius: 4px;
   }
+  .on-dark :focus-visible {
+    outline-color: var(--color-blush);
+  }
 
   img,
-  svg {
+  svg,
+  video {
     display: block;
   }
 
@@ -101,29 +104,22 @@
   padding-inline: clamp(1.25rem, 0.5rem + 3.2vw, 3.5rem);
 }
 
-/* Serifada editorial de títulos */
+/* Serifada clássica de alto contraste, peso leve */
 @utility t-display {
   font-family: var(--font-serif);
-  font-weight: 500;
+  font-weight: 400;
   font-optical-sizing: auto;
   text-wrap: balance;
 }
 
-/* Rótulo: caixa-alta espaçada */
+/* Rótulo: caixa-alta espaçada (como "THIS WEEK'S BOUQUETS" na referência) */
 @utility eyebrow {
   font-family: var(--font-sans);
   font-size: 0.72rem;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-/* Destaque em itálico mostarda — a "assinatura" dos títulos */
-@utility em-accent {
-  font-style: italic;
   font-weight: 500;
-  color: var(--color-mostarda);
+  line-height: 1.2;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 /* Link com sublinhado que desenha no hover (só transform) + área de toque ≥ 44px */
@@ -142,7 +138,7 @@
     bottom: calc(0.65rem - 4px);
     height: 1px;
     background: currentColor;
-    transform: scaleX(0.35);
+    transform: scaleX(0);
     transform-origin: left;
     transition: transform 600ms var(--ease-soft);
   }
@@ -152,54 +148,12 @@
   }
 }
 
-/* ── Marquee: só `transform` no compositor. Duas metades idênticas → loop sem emenda ── */
-@keyframes marquee {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 38s linear infinite;
-  will-change: transform;
-}
-
-/* ── Cards flutuantes do hero: levitação suave (transform no compositor) ── */
-@keyframes flutua {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -10px, 0);
-  }
-}
-.flutua {
-  animation: flutua 6s ease-in-out infinite;
-}
-.flutua-2 {
-  animation: flutua 7.5s ease-in-out -2.5s infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .flutua,
-  .flutua-2 {
-    animation: none;
-  }
-}
-
-/* Foto: zoom lento no hover (transform) */
-.foto-zoom img {
-  transition: transform 1200ms var(--ease-soft);
-}
+/* Foto: zoom lento no hover — só em dispositivos com mouse, só transform */
 @media (hover: hover) {
-  .group:hover .foto-zoom img,
-  .foto-zoom:hover img {
+  .foto-zoom img {
+    transition: transform 1200ms var(--ease-soft);
+  }
+  .group:hover .foto-zoom img {
     transform: scale(1.04);
   }
 }
