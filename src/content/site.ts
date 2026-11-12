@@ -28,6 +28,15 @@ export const site = {
     defaultMessage: "Olá, Mania de Plantas! Gostaria de fazer uma encomenda.",
   },
 
+  /** Endereço da loja e link direto da localização no Google Maps (abre o app no celular). */
+  address: {
+    line1: "QR 310 Conjunto 08 lote 01",
+    line2: "Samambaia, Brasília - DF",
+    full: "QR 310 Conjunto 08 lote 01 - Samambaia, Brasília - DF",
+    street: "QR 310 Conjunto 08 lote 01",
+    mapsUrl: "https://www.google.com/maps/place//data=!4m2!3m1!19sChIJm2i8aFYtWpMRsffm5f8SFRs",
+  },
+
   /** Prova social informada pelo cliente: 5.0 com 6 avaliações no Google. */
   rating: {
     score: "5.0",

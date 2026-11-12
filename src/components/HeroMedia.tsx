@@ -71,7 +71,7 @@ export function HeroMedia({ stillSrc, stillAlt, fallbackSrc, fallbackAlt, sizes 
   }, [showVideo]);
 
   return (
-    <div ref={boxRef} className="absolute inset-0 overflow-hidden rounded-sm bg-blush-profundo">
+    <div ref={boxRef} className="absolute inset-0 overflow-hidden bg-blush-profundo">
       {/* camada 1 — primeiro quadro do vídeo (SSR) */}
       <Image
         src={stillSrc}
@@ -96,7 +96,7 @@ export function HeroMedia({ stillSrc, stillAlt, fallbackSrc, fallbackAlt, sizes 
           tabIndex={-1}
           onPlaying={() => setPlaying(true)}
           onError={() => setFailed(true)}
-          className={`absolute inset-0 h-full w-full transform-gpu rounded-sm object-cover transition-opacity duration-500 ${
+          className={`absolute inset-0 h-full w-full transform-gpu object-cover transition-opacity duration-500 ${
             playing ? "opacity-100" : "opacity-0"
           }`}
         />

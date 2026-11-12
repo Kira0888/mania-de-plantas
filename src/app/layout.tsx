@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { site } from "@/content/site";
 import "./globals.css";
@@ -14,10 +14,10 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-/** Texto e interface: Plus Jakarta Sans — sans moderna, fina e legível (1 arquivo variável). */
-const jakarta = Plus_Jakarta_Sans({
+/** Texto e interface: Inter — sans limpa e moderna, usada em peso leve (1 arquivo variável). */
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7ebe8",
+  themeColor: "#f4e3dd",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -69,15 +69,17 @@ const jsonLd = {
   telephone: `+${site.whatsapp.number}`,
   address: {
     "@type": "PostalAddress",
+    streetAddress: site.address.street,
     addressLocality: "Samambaia",
     addressRegion: "DF",
     addressCountry: "BR",
   },
+  hasMap: site.address.mapsUrl,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${jakarta.variable}`}>
+    <html lang="pt-BR" className={`${playfair.variable} ${inter.variable}`}>
       <body>
         {/* Sem JS, as entradas animadas não podem deixar o conteúdo invisível */}
         <noscript>

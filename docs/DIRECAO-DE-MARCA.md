@@ -28,19 +28,19 @@ Boutique floral clássica: fundo rosa pálido, tipografia serifada gigante e ele
 
 | Token | Hex | Papel | Contraste |
 |---|---|---|---|
-| `blush` | `#F7EBE8` | Fundo principal, navbar, "Como Funciona", blocos dos cards | — |
-| `blush-profundo` | `#EFD9D3` | Placeholder de foto, hover | — |
-| `bordo` | `#4A1525` | Texto principal, botões, bordas | **12,6:1** sobre blush |
-| `bordo-profundo` | `#3D101C` | Seção de produtos e rodapé/CTA | blush **14,0:1** |
-| `tinta` | `#6E4350` | Texto secundário sobre blush | 7,0:1 |
-| `petala` | `#E6CFCB` | Texto secundário sobre bordô-profundo | 11,0:1 |
+| `blush` | `#F4E3DD` | Fundo principal, navbar, "Como Funciona", blocos dos cards | — |
+| `blush-profundo` | `#EBD0C8` | Placeholder de foto | — |
+| `bordo` | `#3D101C` | Títulos, texto, botões **e** seções escuras (Buquês, rodapé) | **13,1:1** sobre blush; blush **13,1:1** sobre bordô |
+| `bordo-claro` | `#5A2233` | Hover de botões bordô | blush 9,9:1 |
+| `tinta` | `#6A3A47` | Texto secundário sobre blush | 7,3:1 |
+| `petala` | `#DDC3BF` | Texto secundário sobre bordô | 9,8:1 |
 
 ## 4. Typography
 
 | Função | Fonte | Uso |
 |---|---|---|
-| Títulos | **Playfair Display** 400 (serifada clássica de alto contraste) | Hero gigante `3.1→6.6rem`, títulos de seção, nomes dos cards, logo em caixa-alta espaçada |
-| Texto / UI | **Plus Jakarta Sans** (peso 300–500) | Corpo fino e legível, navegação, rótulos em caixa-alta |
+| Títulos | **Playfair Display** 400, números alinhados (`lining-nums`) | **Todos** os títulos: hero gigante `3.2→6.9rem` (entrelinha 0,93, tracking −0,032em), seções, cards, logo em caixa-alta espaçada |
+| Texto / UI | **Inter** (peso 300 no corpo; 400–500 em UI e rótulos) | Texto de apoio bem leve, navegação, botões, rótulos em caixa-alta |
 
 **Botão:** pill `rounded-full`, fundo bordô, texto blush, MAIÚSCULAS com espaçamento `0.18em`, seta `→` (lucide `ArrowRight`). Sobre fundo bordô, o botão inverte (blush com texto bordô).
 
@@ -58,13 +58,17 @@ Boutique floral clássica: fundo rosa pálido, tipografia serifada gigante e ele
 ## 6. Arquitetura
 
 ```
-Navbar (blush)  MANIA / DE PLANTAS · Buquês · Como Funciona · Contato · [Encomendar →]
-01 HERO ............ título gigante (4 linhas) + subtítulo + [FAZER ENCOMENDA →] + selo ★★★★★ 5.0 · 6 AVALIAÇÕES NO GOOGLE  |  vídeo/foto sangrando à direita
-02 BUQUÊS DA SEMANA  fundo bordô · "Ver todos →" · 3 cards (foto + bloco blush): O Clássico · O Ousado · O Especial
+Navbar (blush)  MANIA / DE PLANTAS · Buquês · Como Funciona · Localização · [Encomendar →]
+01 HERO ASSIMÉTRICO  esq.: título gigante (4 linhas) + subtítulo + [FAZER ENCOMENDA →] + selo ★★★★★ 5.0 · 6 AVALIAÇÕES NO GOOGLE
+                     dir.: vídeo em RECORTE DE ARCO (a forma-assinatura da marca) + contorno deslocado + legenda "Fig. 01"
+02 BUQUÊS DA SEMANA  fundo bordô · título serifado · "Ver todos →" · 3 cards: foto 4:5 no topo + bloco blush (Nº, título, texto, Encomendar →)
 03 COMO FUNCIONA ... "Simples. Cuidadoso. Sempre Fresco." · 1 Escolha · 2 Nós Criamos · 3 Entregamos
-04 CTA FINAL ....... fundo bordô · [FALAR NO WHATSAPP →] · rodapé com contato
+04 FECHAMENTO ...... fundo bordô · "Mais flores para dias mais felizes" · [FALAR NO WHATSAPP →]
+                     ONDE ESTAMOS: QR 310 Conjunto 08 lote 01 / Samambaia, Brasília - DF · [ABRIR NO GOOGLE MAPS →] (link direto) · contato · rodapé
 Flutuante (mobile): pílula "Fazer Encomenda →" após o hero
 ```
+
+**Animações de rolagem** (todas `framer-motion`, `viewport once`, só `transform`/`opacity`, `transform-gpu` apenas durante a animação): títulos com máscara de linha, fade + subida suave nos blocos, fios de 1px que "desenham" (`scaleX`), fotos dos cards entrando com zoom leve (1.08 → 1). O recorte em arco do hero e a troca foto→vídeo seguem a regra do primeiro quadro (seção 5).
 
 ## 7. Auditoria de performance
 

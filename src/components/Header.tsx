@@ -9,7 +9,7 @@ import { waLink } from "@/lib/whatsapp";
 const NAV = [
   { label: "Buquês", href: "#buques" },
   { label: "Como Funciona", href: "#como-funciona" },
-  { label: "Contato", href: "#contato" },
+  { label: "Localização", href: "#localizacao" },
 ] as const;
 
 /** Logo tipográfico: MANIA / DE PLANTAS — serifada em caixa-alta espaçada. */

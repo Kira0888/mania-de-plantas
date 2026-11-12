@@ -2,28 +2,28 @@
 
 /* ──────────────────────────────────────────────────────────────────────────
    MANIA DE PLANTAS — Design System "Petal / Post" (boutique floral clássica)
-   Rosa pálido (blush) + bordô profundo. Serifada de alto contraste, pills, hairlines.
+   Blush #F4E3DD + bordô #3D101C. Playfair Display nos títulos, Inter leve no texto, pills, hairlines.
    ────────────────────────────────────────────────────────────────────────── */
 
 @theme static {
-  /* Cor — contrastes WCAG medidos: bordô/blush 12,6 · blush/bordô-profundo 14,0 · tinta/blush 7,0 */
-  --color-blush: #f7ebe8;
-  --color-blush-profundo: #efd9d3;
-  --color-bordo: #4a1525;
-  --color-bordo-profundo: #3d101c;
-  --color-tinta: #6e4350; /* texto secundário sobre blush */
-  --color-petala: #e6cfcb; /* texto secundário sobre bordô */
+  /* Cor — contrastes WCAG medidos: bordô/blush 13,1 · tinta/blush 7,3 · pétala/bordô 9,8 */
+  --color-blush: #f4e3dd; /* fundo principal */
+  --color-blush-profundo: #ebd0c8; /* placeholder de foto, superfícies sutis */
+  --color-bordo: #3d101c; /* títulos, texto, botões e seções escuras */
+  --color-bordo-claro: #5a2233; /* hover de botões bordô */
+  --color-tinta: #6a3a47; /* texto secundário sobre blush */
+  --color-petala: #ddc3bf; /* texto secundário sobre bordô */
 
   /* Escala fluida */
-  --text-display-xl: clamp(3.1rem, 1.4rem + 6.2vw, 6.6rem);
-  --text-display-xl--line-height: 0.95;
-  --text-display-xl--letter-spacing: -0.025em;
-  --text-display-l: clamp(2.3rem, 1.2rem + 4.2vw, 4.6rem);
-  --text-display-l--line-height: 1.05;
-  --text-display-l--letter-spacing: -0.02em;
-  --text-display-m: clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem);
-  --text-display-m--line-height: 1.15;
-  --text-display-m--letter-spacing: -0.005em;
+  --text-display-xl: clamp(3.2rem, 1.4rem + 6.4vw, 6.9rem);
+  --text-display-xl--line-height: 0.93;
+  --text-display-xl--letter-spacing: -0.032em;
+  --text-display-l: clamp(2.4rem, 1.2rem + 4.4vw, 4.9rem);
+  --text-display-l--line-height: 1.04;
+  --text-display-l--letter-spacing: -0.026em;
+  --text-display-m: clamp(1.4rem, 1.15rem + 0.8vw, 1.85rem);
+  --text-display-m--line-height: 1.14;
+  --text-display-m--letter-spacing: -0.012em;
   --text-lead: clamp(1.05rem, 1rem + 0.35vw, 1.28rem);
   --text-lead--line-height: 1.6;
 
@@ -33,7 +33,7 @@
 @theme inline {
   /* Fontes injetadas pelo next/font em <html> */
   --font-serif: var(--font-playfair), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
@@ -58,8 +58,8 @@
     color: var(--color-bordo);
     font-family: var(--font-sans);
     font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6;
+    font-weight: 300; /* texto de apoio bem leve; UI e rótulos sobem para 400–500 */
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -109,6 +109,8 @@
   font-family: var(--font-serif);
   font-weight: 400;
   font-optical-sizing: auto;
+  /* números alinhados (endereço, telefone, nota): a Playfair usa números "de texto" por padrão */
+  font-variant-numeric: lining-nums;
   text-wrap: balance;
 }
 
@@ -169,7 +171,7 @@
 /* Telas baixas (notebook 1366×768 etc.): título um pouco menor para CTA e selo caberem na 1ª dobra */
 @media (min-width: 1024px) and (max-height: 820px) {
   :root {
-    --text-display-xl: clamp(3rem, 11.5vh, 5.6rem);
+    --text-display-xl: clamp(3rem, 11vh, 5.4rem);
   }
 }
 

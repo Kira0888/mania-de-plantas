@@ -2,7 +2,7 @@
 
 Landing page da **Mania de Plantas** — floricultura em Samambaia, DF.
 Next.js 16 (App Router) · React 19 · Tailwind CSS 4 · Framer Motion 14 · lucide-react · TypeScript.
-Direção visual: referência **"Petal / Post"** (boutique floral clássica — rosa pálido + bordô profundo + serifada de alto contraste).
+Direção visual: referência **"Petal / Post"** (boutique floral clássica) — fundo blush `#F4E3DD`, texto e blocos em bordô `#3D101C`, **Playfair Display** nos títulos e **Inter** leve no texto.
 
 > Direção de marca: **[docs/DIRECAO-DE-MARCA.md](docs/DIRECAO-DE-MARCA.md)**
 > Versões anteriores: v1 "Estufa Editorial" em `docs/arquivo/v1-estufa-editorial.tgz`; v2 "Botanic" (escura) no histórico do Git.
@@ -43,16 +43,16 @@ Peso atual: 5,1 MB (inclui uma trilha de áudio que não é usada, pois o vídeo
 | Quero… | Arquivo |
 |---|---|
 | Textos, nomes dos buquês, passos, imagens | [src/app/page.tsx](src/app/page.tsx) (blocos `IMG` e `COPY` no topo) |
-| WhatsApp, localidade, nota/avaliações | [src/content/site.ts](src/content/site.ts) |
+| WhatsApp, localidade, **endereço e link do Google Maps**, nota/avaliações | [src/content/site.ts](src/content/site.ts) |
 | Cores, escala tipográfica | [src/app/globals.css](src/app/globals.css) (`@theme`) |
 | Vídeo/foto do hero | [src/components/HeroMedia.tsx](src/components/HeroMedia.tsx) |
 
 ## Estrutura da página
-1. **Navbar** rosa pálido — `MANIA / DE PLANTAS`, links centralizados, "Encomendar →"
-2. **Hero** — "Flores Frescas, Dias Mais Felizes" · botão pill **FAZER ENCOMENDA →** · selo "★★★★★ 5.0 · 6 Avaliações no Google" · vídeo/foto à direita
-3. **Buquês da Semana** (fundo bordô) — 3 cards: O Clássico · O Ousado · O Especial
+1. **Navbar** blush — `MANIA / DE PLANTAS`, links (Buquês · Como Funciona · Localização), "Encomendar →"
+2. **Hero assimétrico** — esquerda: "Flores Frescas, Dias Mais Felizes", subtítulo, botão pill **FAZER ENCOMENDA →** e selo "★★★★★ 5.0 · 6 Avaliações no Google"; direita: o vídeo em **recorte de arco** com contorno deslocado e legenda editorial
+3. **Buquês da Semana** (fundo bordô) — 3 cards com a foto no topo (4:5) e bloco blush embaixo: O Clássico · O Ousado · O Especial
 4. **Como Funciona** — "Simples. Cuidadoso. Sempre Fresco." · Escolha · Nós Criamos · Entregamos (ícones lucide)
-5. **CTA final / rodapé** (fundo bordô) — **FALAR NO WHATSAPP →**
+5. **Fechamento** (fundo bordô) — **FALAR NO WHATSAPP →**; **Onde estamos** com o endereço e o botão **Abrir no Google Maps** (link direto, abre o app no celular); contato e rodapé
 
 Todo CTA abre `wa.me/5561999842506` com mensagem pré-preenchida. Botão flutuante extra no mobile.
 
