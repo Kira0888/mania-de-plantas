@@ -24,11 +24,11 @@ npm run typecheck && npm run lint
 | `33608.png` | Card 1 "O Clássico" (rosas, lírios amarelos, flores azuis) | ✅ incluído |
 | `33610.png` | Card 2 "O Ousado" (hortênsia azul) | ✅ incluído |
 | `33609.png` | Card 3 "O Especial" (rosas no cone de papel pardo) | ✅ incluído |
-| `hero_bg.mp4` | Vídeo do hero (opcional) | ⚠️ **não incluído** — ver abaixo |
+| `hero_bg.mp4` | Vídeo do hero (rosas e hortênsias, 720×1280, 10 s, 5,1 MB) | ✅ incluído |
 
 ### Vídeo do hero (`public/hero_bg.mp4`)
-É **opcional**: sem o arquivo, o site mostra a foto `33611.png` (nada quebra). Basta salvar o vídeo em `public/hero_bg.mp4` e publicar de novo.
-Recomendado: H.264 (MP4), 720p, 8–12 s em loop, **≤ 3 MB**, sem áudio. O vídeo só é carregado depois da foto, pausa quando sai da tela e **não toca** com "reduzir movimento" ou "economia de dados".
+O vídeo toca por cima da foto `33611.png`, que continua como fallback: se o arquivo faltar ou falhar, a foto assume e nada quebra. Ele só é carregado depois da foto, pausa quando sai da tela e **não toca** com "reduzir movimento" ou "economia de dados".
+Peso atual: 5,1 MB (inclui uma trilha de áudio que não é usada, pois o vídeo toca sempre sem som). Dá para reduzir para ~2 MB sem áudio se quiser economizar dados no celular.
 
 ## Onde mexer
 
@@ -41,7 +41,7 @@ Recomendado: H.264 (MP4), 720p, 8–12 s em loop, **≤ 3 MB**, sem áudio. O v�
 
 ## Estrutura da página
 1. **Navbar** rosa pálido — `MANIA / DE PLANTAS`, links centralizados, "Encomendar →"
-2. **Hero** — "Flores Frescas, Dias Mais Felizes" · botão pill **FAZER ENCOMENDA →** · vídeo/foto à direita
+2. **Hero** — "Flores Frescas, Dias Mais Felizes" · botão pill **FAZER ENCOMENDA →** · selo "★★★★★ 5.0 / 6 Avaliações no Google" · vídeo/foto à direita
 3. **Buquês da Semana** (fundo bordô) — 3 cards: O Clássico · O Ousado · O Especial
 4. **Como Funciona** — "Simples. Cuidadoso. Sempre Fresco." · Escolha · Nós Criamos · Entregamos (ícones lucide)
 5. **CTA final / rodapé** (fundo bordô) — **FALAR NO WHATSAPP →**

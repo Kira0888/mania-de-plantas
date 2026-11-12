@@ -148,6 +148,13 @@
   }
 }
 
+/* Telas baixas (notebook 1366×768 etc.): título um pouco menor para CTA e selo caberem na 1ª dobra */
+@media (min-width: 1024px) and (max-height: 820px) {
+  :root {
+    --text-display-xl: clamp(3rem, 11.5vh, 5.6rem);
+  }
+}
+
 /* Foto: zoom lento no hover — só em dispositivos com mouse, só transform */
 @media (hover: hover) {
   .foto-zoom img {

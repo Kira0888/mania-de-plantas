@@ -9,7 +9,7 @@
 |---|---|
 | Nome, nicho, WhatsApp **(61) 99984-2506** | Endereço completo, horário |
 | Localidade: **Samambaia, DF** | Texto de avaliações de clientes |
-| **5.0** com **6 avaliações no Google** (nos metadados; não há seção de avaliações neste layout) | Preços, anos de mercado |
+| **5.0** com **6 avaliações no Google** (selo do hero) | Preços, anos de mercado |
 
 Contato e prova social: `src/content/site.ts`. Textos da página: `src/app/page.tsx`.
 
@@ -52,13 +52,13 @@ Boutique floral clássica: fundo rosa pálido, tipografia serifada gigante e ele
 | `33608.png` | Rosas, lírios amarelos e flores azuis | Card 1 — O Clássico |
 | `33610.png` | Hortênsia azul | Card 2 — O Ousado |
 | `33609.png` | Rosas no cone de papel pardo | Card 3 — O Especial |
-| `hero_bg.mp4` | Vídeo do hero | **Opcional, ainda não fornecido** — sem ele a foto assume |
+| `hero_bg.mp4` | Vídeo do hero: rosas e hortênsias, H.264, 720×1280, 10 s, 5,1 MB | Por cima da foto; sem ele (ou se falhar) a foto assume |
 
 ## 6. Arquitetura
 
 ```
 Navbar (blush)  MANIA / DE PLANTAS · Buquês · Como Funciona · Contato · [Encomendar →]
-01 HERO ............ título gigante (4 linhas) + subtítulo + [FAZER ENCOMENDA →]  |  vídeo/foto sangrando à direita
+01 HERO ............ título gigante (4 linhas) + subtítulo + [FAZER ENCOMENDA →] + selo ★★★★★ 5.0 / 6 AVALIAÇÕES NO GOOGLE  |  vídeo/foto sangrando à direita
 02 BUQUÊS DA SEMANA  fundo bordô · "Ver todos →" · 3 cards (foto + bloco blush): O Clássico · O Ousado · O Especial
 03 COMO FUNCIONA ... "Simples. Cuidadoso. Sempre Fresco." · 1 Escolha · 2 Nós Criamos · 3 Entregamos
 04 CTA FINAL ....... fundo bordô · [FALAR NO WHATSAPP →] · rodapé com contato
@@ -89,9 +89,9 @@ Flutuante (mobile): pílula "Fazer Encomenda →" após o hero
 
 Com vídeo de teste no hero: vídeo toca, pausa fora da tela, retoma ao voltar, não é montado com reduced-motion; scroll continua em 60 fps.
 Há 2 *long tasks* (~100 ms; 272 ms com CPU 4× mais lenta) só na hidratação inicial; nenhum durante a rolagem.
-**Pendente:** medir em aparelho físico e com o vídeo real (decodificação em hardware varia).
+Verificado com o vídeo real: toca (720×1280, sem erro), pausa fora da tela, retoma; scroll em 60 fps com ele rodando. O hero se adapta a telas baixas (1280×720 e 1366×768): CTA e selo cabem na primeira dobra.
+**Pendente:** medir em aparelho físico (decodificação em hardware varia).
 
 ## 8. Pendências
-- [ ] Fornecer `public/hero_bg.mp4` (H.264, 720p, ≤ 3 MB, sem áudio)
-- [ ] Confirmar "entrega local" (usada no passo 3 e no subtítulo)
+- [ ] Opcional: versão do vídeo sem áudio (~2 MB) para economizar dados no celular
 - [ ] Domínio próprio → `NEXT_PUBLIC_SITE_URL`

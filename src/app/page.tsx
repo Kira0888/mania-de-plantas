@@ -1,4 +1,4 @@
-import { ArrowRight, Flower2, House, Scissors } from "lucide-react";
+import { ArrowRight, Flower2, House, Scissors, Star } from "lucide-react";
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import { HeroMedia } from "@/components/HeroMedia";
@@ -27,6 +27,7 @@ const HERO = {
   // uma linha por item (máscara de entrada); 4 linhas como na referência
   titleLines: [[{ t: "Flores" }], [{ t: "Frescas," }], [{ t: "Dias Mais" }], [{ t: "Felizes" }]],
   lead: "Arranjos artesanais entregues com carinho em Samambaia. Um pouco mais de beleza para a sua semana.",
+  ratingLabel: "Avaliações no Google",
 } as const;
 
 const BOUQUETS = {
@@ -90,29 +91,59 @@ const CLOSING = {
 } as const;
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   SELO DE AVALIAÇÕES — prova social discreta: 5 estrelas + "5.0 Avaliações no Google"
+   ═══════════════════════════════════════════════════════════════════════════ */
+function RatingSeal() {
+  return (
+    <div
+      role="img"
+      aria-label={`Nota ${site.rating.score} de 5, com ${site.rating.count} avaliações no Google`}
+      className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-4"
+    >
+      <span aria-hidden="true" className="flex gap-1 text-bordo">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} fill="currentColor" strokeWidth={0} className="h-[13px] w-[13px]" />
+        ))}
+      </span>
+      <span aria-hidden="true" className="hidden h-5 w-px bg-bordo/25 min-[375px]:block" />
+      <p aria-hidden="true" className="flex items-baseline gap-2 sm:gap-2.5">
+        <span className="t-display text-[1.3rem] leading-none text-bordo sm:text-[1.4rem]">{site.rating.score}</span>
+        <span className="text-[0.64rem] font-medium tracking-[0.14em] whitespace-nowrap text-tinta uppercase sm:text-[0.72rem] sm:tracking-[0.2em]">
+          / {site.rating.count} {HERO.ratingLabel}
+        </span>
+      </p>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    2 · HERO — título gigante à esquerda; vídeo (ou foto) à direita, sangrando até a borda
    ═══════════════════════════════════════════════════════════════════════════ */
 function Hero() {
   return (
     <section id="inicio" className="bg-blush">
       <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)]">
-        <div className="flex flex-col justify-center px-5 pt-8 pb-12 sm:px-8 lg:py-16 lg:pr-12 lg:pl-[clamp(2.5rem,5vw,5.5rem)]">
+        <div className="flex flex-col justify-center px-5 pt-8 pb-12 sm:px-8 lg:py-12 lg:[@media(max-height:820px)]:py-7 lg:pr-12 lg:pl-[clamp(2.5rem,5vw,5.5rem)]">
           <RevealLines
             lines={HERO.titleLines}
             onMount
             className="t-display text-display-xl text-bordo"
           />
 
-          <Reveal onMount delay={0.5} className="mt-8 max-w-[27rem]">
+          <Reveal onMount delay={0.5} className="mt-8 lg:[@media(max-height:820px)]:mt-5 max-w-[27rem]">
             <p className="text-lead font-light text-tinta">{HERO.lead}</p>
           </Reveal>
 
-          <Reveal onMount delay={0.65} className="mt-10">
+          <Reveal onMount delay={0.65} className="mt-10 lg:[@media(max-height:820px)]:mt-7">
             <WhatsAppButton variant="primary" size="lg" />
+          </Reveal>
+
+          <Reveal onMount delay={0.8} className="mt-8 lg:[@media(max-height:820px)]:mt-6">
+            <RatingSeal />
           </Reveal>
         </div>
 
-        <div className="relative px-5 pb-12 sm:px-8 lg:min-h-[44rem] lg:p-0">
+        <div className="relative px-5 pb-12 sm:px-8 lg:min-h-[min(44rem,calc(100svh-4.5rem))] lg:p-0">
           <div className="relative aspect-[4/5] lg:absolute lg:inset-0 lg:aspect-auto">
             <HeroMedia
               imageSrc={IMG.hero}
