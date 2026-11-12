@@ -58,7 +58,7 @@ Boutique floral clássica: fundo rosa pálido, tipografia serifada gigante e ele
 
 ```
 Navbar (blush)  MANIA / DE PLANTAS · Buquês · Como Funciona · Contato · [Encomendar →]
-01 HERO ............ título gigante (4 linhas) + subtítulo + [FAZER ENCOMENDA →] + selo ★★★★★ 5.0 / 6 AVALIAÇÕES NO GOOGLE  |  vídeo/foto sangrando à direita
+01 HERO ............ título gigante (4 linhas) + subtítulo + [FAZER ENCOMENDA →] + selo ★★★★★ 5.0 · 6 AVALIAÇÕES NO GOOGLE  |  vídeo/foto sangrando à direita
 02 BUQUÊS DA SEMANA  fundo bordô · "Ver todos →" · 3 cards (foto + bloco blush): O Clássico · O Ousado · O Especial
 03 COMO FUNCIONA ... "Simples. Cuidadoso. Sempre Fresco." · 1 Escolha · 2 Nós Criamos · 3 Entregamos
 04 CTA FINAL ....... fundo bordô · [FALAR NO WHATSAPP →] · rodapé com contato

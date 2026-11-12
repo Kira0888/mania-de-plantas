@@ -91,7 +91,7 @@ const CLOSING = {
 } as const;
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   SELO DE AVALIAÇÕES — prova social discreta: 5 estrelas + "5.0 Avaliações no Google"
+   SELO DE AVALIAÇÕES — prova social discreta: 5 estrelas + "5.0 · 6 Avaliações no Google"
    ═══════════════════════════════════════════════════════════════════════════ */
 function RatingSeal() {
   return (
@@ -109,7 +109,7 @@ function RatingSeal() {
       <p aria-hidden="true" className="flex items-baseline gap-2 sm:gap-2.5">
         <span className="t-display text-[1.3rem] leading-none text-bordo sm:text-[1.4rem]">{site.rating.score}</span>
         <span className="text-[0.64rem] font-medium tracking-[0.14em] whitespace-nowrap text-tinta uppercase sm:text-[0.72rem] sm:tracking-[0.2em]">
-          / {site.rating.count} {HERO.ratingLabel}
+          · {site.rating.count} {HERO.ratingLabel}
         </span>
       </p>
     </div>

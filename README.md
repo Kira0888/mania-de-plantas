@@ -41,7 +41,7 @@ Peso atual: 5,1 MB (inclui uma trilha de áudio que não é usada, pois o vídeo
 
 ## Estrutura da página
 1. **Navbar** rosa pálido — `MANIA / DE PLANTAS`, links centralizados, "Encomendar →"
-2. **Hero** — "Flores Frescas, Dias Mais Felizes" · botão pill **FAZER ENCOMENDA →** · selo "★★★★★ 5.0 / 6 Avaliações no Google" · vídeo/foto à direita
+2. **Hero** — "Flores Frescas, Dias Mais Felizes" · botão pill **FAZER ENCOMENDA →** · selo "★★★★★ 5.0 · 6 Avaliações no Google" · vídeo/foto à direita
 3. **Buquês da Semana** (fundo bordô) — 3 cards: O Clássico · O Ousado · O Especial
 4. **Como Funciona** — "Simples. Cuidadoso. Sempre Fresco." · Escolha · Nós Criamos · Entregamos (ícones lucide)
 5. **CTA final / rodapé** (fundo bordô) — **FALAR NO WHATSAPP →**
